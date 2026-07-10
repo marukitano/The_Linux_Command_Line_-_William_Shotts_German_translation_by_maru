@@ -47,4 +47,4 @@ Ein besonderer Dank gilt **William Shotts**, der dieses hervorragende Buch unter
 
 ---
 
-> _"Wissen wächst, wenn man es teilt."_
+> "Wissen wächst, wenn man es teilt."
