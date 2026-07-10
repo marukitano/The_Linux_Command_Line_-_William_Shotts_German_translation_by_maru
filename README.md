@@ -1,9 +1,8 @@
 # The Linux Command Line – Deutsche Übersetzung
 
-
 ## Worum geht es?
 
-*The Linux Command Line* von **William Shotts** gehört zu den bekanntesten und besten Büchern über die Linux-Kommandozeile. Das Buch steht unter einer freien Lizenz und wurde bereits in zahlreiche Sprachen übersetzt.
+_The Linux Command Line_ von **William Shotts** gehört zu den bekanntesten und besten Büchern über die Linux-Kommandozeile. Das Buch steht unter einer freien Lizenz und wurde bereits in zahlreiche Sprachen übersetzt.
 
 Nur eine deutsche Übersetzung fehlte bisher.
 
@@ -11,7 +10,7 @@ Das möchten wir ändern.
 
 ## Die Idee
 
-Im Rahmen meines Studiums an der Fachhochschule muss ich *The Linux Command Line* lesen. Das englische Original ist hervorragend geschrieben und gut verständlich. Trotzdem stellte sich schnell die Frage:
+Im Rahmen meines Studiums an der Fachhochschule muss ich _The Linux Command Line_ lesen. Das englische Original ist hervorragend geschrieben und gut verständlich. Trotzdem stellte sich schnell die Frage:
 
 **Warum gibt es dieses Buch eigentlich nicht auf Deutsch?**
 
@@ -48,4 +47,4 @@ Ein besonderer Dank gilt **William Shotts**, der dieses hervorragende Buch unter
 
 ---
 
-> *"Wissen wächst, wenn man es teilt."*
+> _"Wissen wächst, wenn man es teilt."_
