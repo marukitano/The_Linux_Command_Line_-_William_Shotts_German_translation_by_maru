@@ -1,6 +1,5 @@
 # The Linux Command Line – Deutsche Übersetzung
 
-> „Freies Wissen verdient es, von möglichst vielen Menschen verstanden zu werden.“
 
 ## Worum geht es?
 
@@ -24,16 +23,18 @@ Denn Open Source bedeutet nicht nur, Quellcode frei zugänglich zu machen. Open 
 
 ## Arbeitsweise
 
-Die komplette Übersetzung wird in **Markdown** geschrieben und mit der Open-Source-Software **Zettlr** bearbeitet.
+Die gesamte Übersetzung wird in **Markdown** verfasst und mit der Open-Source-Software **Zettlr** bearbeitet.
 
-Dadurch bleibt das gesamte Projekt:
+Dadurch bleibt das Projekt:
 
-- versionsverwaltet mit Git
-- leicht lesbar
-- einfach erweiterbar
-- langfristig wartbar
+- versionsverwaltet mit Git,
+- leicht lesbar,
+- einfach erweiterbar und
+- langfristig wartbar.
 
-Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate wie PDF oder HTML erzeugt werden.
+Für die Rohübersetzung wird abschnittsweise **ChatGPT** eingesetzt. Jeder Abschnitt wird anschließend sorgfältig geprüft, sprachlich überarbeitet und bei Bedarf an Stil, Lesbarkeit und fachliche Genauigkeit angepasst.
+
+Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate wie PDF, HTML oder EPUB erzeugt werden.
 
 ## Mitmachen
 
