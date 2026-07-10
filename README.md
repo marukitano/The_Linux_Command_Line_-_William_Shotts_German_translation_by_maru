@@ -33,11 +33,11 @@ Dadurch bleibt das gesamte Projekt:
 - einfach erweiterbar
 - langfristig wartbar
 
-Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate wie PDF, HTML oder EPUB erzeugt werden.
+Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate wie PDF oder HTML erzeugt werden.
 
 ## Mitmachen
 
-Auch wenn dieses Projekt derzeit hauptsächlich von einer Person umgesetzt wird, freuen wir uns über jede Unterstützung.
+Wir freuen uns über jede Unterstützung.
 
 Ob Rechtschreibfehler, Formulierungen, fachliche Hinweise oder komplette Kapitel – jede Verbesserung hilft dabei, eine möglichst hochwertige deutsche Ausgabe dieses großartigen Buches zu erstellen.
 
