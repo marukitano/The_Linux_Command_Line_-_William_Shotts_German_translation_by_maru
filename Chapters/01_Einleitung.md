@@ -96,4 +96,53 @@ Außerdem scheint die Welt der Betriebssysteme kurze, einprägsame Namen zu bevo
 Falls du allerdings lieber **„GNU/Linux“** sagst, dann ersetze beim Lesen dieses Buches das Wort _Linux_ einfach gedanklich durch _GNU/Linux_. Ich habe nichts dagegen.
 :::
 
+## Was ist neu in der siebten Internetausgabe?
 
+Während die Shell selbst nur etwa alle zehn Jahre eine neue Hauptversion erhält, entwickeln sich Hardware und Werkzeuge ständig weiter. Deshalb wurde auch diese Ausgabe von _The Linux Command Line_ erneut an die heutige Kommandozeilenumgebung angepasst. Neben zahlreichen kleineren Korrekturen und Verbesserungen entspricht sie jetzt außerdem der gedruckten Ausgabe _The Linux Command Line: A Complete Introduction, Third Edition_, die bei No Starch Press erschienen ist. Eine ausführliche Übersicht aller Änderungen findest du in den Release Notes auf LinuxCommand.org. Neu in dieser Ausgabe ist außerdem eine Sammlung der Beispielskripte aus dem Buch. Auch sie kannst du auf LinuxCommand.org herunterladen.
+
+## Danksagung
+
+Dieses Buch wäre ohne die Unterstützung vieler Menschen nicht möglich gewesen. Ihnen allen möchte ich herzlich danken. Jenny Watson, Lektorin bei Wiley Publishing, brachte mich ursprünglich auf die Idee, ein Buch über Shell-Skripte zu schreiben. John C. Dvorak, bekannter Kolumnist und Technikkommentator, sagte einmal in einer Folge seines Videopodcasts _Cranky Geeks_:
+
+> „Zur Hölle, schreib jeden Tag 200 Wörter, und nach einem Jahr hast du einen Roman.“
+
+Dieser Rat brachte mich auf die Idee, jeden Tag eine Seite zu schreiben – bis schließlich ein ganzes Buch daraus geworden war.
+
+Dmitri Popov schrieb im _Free Software Magazine_ den Artikel _Creating a Book Template with Writer_. Er inspirierte mich dazu, den Text dieses Buches mit OpenOffice.org Writer (und später LibreOffice Writer) zu verfassen. Wie sich herausstellte, war das eine ausgezeichnete Entscheidung. Mark Polesky unterzog die erste Ausgabe einer außergewöhnlich gründlichen Prüfung und testete sie ausführlich. Jesse Becker, Tomasz Chrzczonowicz, Michael Levin und Spence Miner testeten und begutachteten ebenfalls Teile der ersten Ausgabe. Karen M. Shotts investierte unzählige Stunden, um mein sogenanntes Englisch zu überarbeiten und das ursprüngliche Manuskript sprachlich zu verfeinern.
+
+::: note
+## Siebte Internetausgabe
+
+Mein besonderer Dank gilt den folgenden Personen, deren wertvolles Feedback in die siebte Internetausgabe eingeflossen ist: Vitor Centeio, Elmar Deininger, Francesco Di Viesto, Jaroslaw Kolosowski, Kayck Matias und Wang Zheng.
+:::
+
+::: note
+## Frühere Ausgaben
+
+Mein besonderer Dank gilt außerdem allen, die mit ihrem wertvollen Feedback zu den früheren Ausgaben beigetragen haben: Ala'a Ali, Adrian Arpidez, Mikey Barboza, Jesse Becker, Emanuele Bernardi, Andreas Bjørnestad, Hu Bo, Steve Bragg, John Burns, Heriberto Cantú, Enzo Cardinal, Paolo Casati, Tomasz Chrzczonowicz, Richard Cooke, Ethan Dowlatshah, Lixin Duan, Joshua Escamilla, Marc Evans, Ryan Flynn, Bruce Fowler, Devin Harper, Jørgen Heitmann, Janrodion, Jonathan Jones, Sunil Joshi, Ma Jun, Eric Kammerer, Robert Kennington, Seth King, Chris Knight, Jaroslaw Kolosowski, Klaus M. Körmendi, Jim Kovacs, Michael Levin, Bartłomiej Majka, Bashar Maree, Frank McTipps, Vladimir Milovanović, Sea Monkey, Tim Nelson, Mike O'Donnell, Oktay-Akin Okutan, Nick Owens, Justin Page, Michael Parrish, Esra Purba, Parviz Rasoulipour, Amir Razqandi, Patrick, Waldo Ribeiro, Pat Roche, Nick Rose, Satej Kumar Sahu, Avid Seeker, Mikhail Sizov, Ben Slater, Pickles Spill, Gabriel Stutzman, Pooya Taherkhani, Francesco Turco, Wolfram Volpi, Boyang Wang, Carl Westman, John Wiersba, Valter Wierzba und Christian Wuethrich.
+:::
+
+Und nicht zuletzt danke ich den Leserinnen und Lesern von LinuxCommand.org. Ihr habt mir im Laufe der Jahre so viele freundliche E-Mails geschrieben. Eure Ermutigung hat mir gezeigt, dass ich offenbar etwas geschaffen habe, das vielen Menschen weiterhilft.
+
+## Dein Feedback ist gefragt!
+
+Dieses Buch ist ein fortlaufendes Projekt – ganz ähnlich wie viele Open-Source-Projekte. Wenn dir ein technischer Fehler auffällt, freue ich mich über eine kurze Nachricht an:
+
+`bshotts@users.sourceforge.net`
+
+Gib dabei bitte unbedingt an, welche Ausgabe des Buches du gerade liest. Vielleicht fließen deine Hinweise oder Verbesserungsvorschläge ja schon in eine der nächsten Versionen ein.
+
+## Weiterführende Literatur
+
+-**Wenn du mehr über die oben erwähnten Persönlichkeiten erfahren möchtest, findest du hier zwei gute Einstiege:**
+- <https://en.wikipedia.org/wiki/Linus_Torvalds>
+- <https://en.wikipedia.org/wiki/Richard_Stallman>
+
+- **Die Free Software Foundation und das GNU-Projekt**
+- <https://en.wikipedia.org/wiki/Free_Software_Foundation>
+- <https://www.fsf.org>
+- <https://www.gnu.org>
+
+- **Richard Stallman über die Bezeichnung „GNU/Linux“**
+- <https://www.gnu.org/gnu/why-gnu-linux.html>
+- <https://www.gnu.org/gnu/gnu-linux-faq.html#tools>
