@@ -176,13 +176,56 @@ Text ist also nichts weiter als eine einfache Zuordnung von Zeichen zu Zahlen.
 
 Diese Darstellung ist sehr platzsparend: Ein Text mit 50 Zeichen benötigt lediglich 50 Byte Speicherplatz.
 
-Wichtig ist jedoch, den Unterschied zwischen **reinem Text** (*Plain Text*) und einem **Textdokument** zu verstehen.
+Wichtig ist jedoch, den Unterschied zwischen **reinem Text** (_Plain Text_) und einem **Textdokument** zu verstehen.
 
-Eine Datei, die beispielsweise mit Microsoft Word oder LibreOffice Writer erstellt wurde, enthält nicht nur den eigentlichen Text. Sie speichert zusätzlich Informationen über Schriftarten, Überschriften, Seitenränder, Formatierungen und viele weitere Eigenschaften.
+Ein **Textdokument**, das beispielsweise mit Microsoft Word oder LibreOffice Writer erstellt wurde, enthält nicht nur den eigentlichen Text. Es speichert zusätzlich Informationen über Schriftarten, Überschriften, Seitenränder, Formatierungen und viele weitere Eigenschaften.
 
-Eine reine ASCII-Textdatei enthält dagegen nur die Zeichen selbst sowie einige wenige Steuerzeichen, beispielsweise Tabulatoren, Wagenrückläufe und Zeilenumbrüche.
+Eine reine **Textdatei** enthält dagegen lediglich die Zeichen selbst sowie einige wenige Steuerzeichen. Ob diese Zeichen mit **ASCII**, **UTF-8** oder einer anderen Zeichenkodierung gespeichert werden, spielt für das grundlegende Prinzip keine Rolle.
 
 Unter Linux werden sehr viele Dateien als Text gespeichert. Außerdem gibt es eine große Zahl von Werkzeugen, die speziell für die Verarbeitung solcher Textdateien entwickelt wurden.
 
 Auch Windows kennt dieses Format. Das bekannte Programm **Editor** (`NOTEPAD.EXE`) dient beispielsweise zum Bearbeiten einfacher Textdateien.
 :::
+
+Warum sollten wir uns überhaupt Textdateien ansehen?
+
+Ganz einfach: Viele Dateien mit Systemeinstellungen – sogenannte **Konfigurationsdateien** – werden in diesem Format gespeichert. Wenn du sie lesen kannst, verstehst du dein Linux-System gleich viel besser.
+
+Außerdem liegen einige der Programme, die das System selbst verwendet, ebenfalls als Textdateien vor. Dabei handelt es sich um sogenannte **Skripte**.
+
+In späteren Kapiteln lernst du, wie du Textdateien bearbeitest, Systemeinstellungen anpasst und deine eigenen Skripte schreibst. Im Moment beschränken wir uns aber darauf, ihren Inhalt anzusehen.
+
+Der Befehl `less` wird folgendermaßen verwendet:
+
+```text
+less dateiname
+```
+
+Nach dem Start kannst du dich mit `less` vorwärts und rückwärts durch eine Textdatei bewegen.
+
+Schauen wir uns als Beispiel die Datei an, in der alle Benutzerkonten des Systems aufgeführt sind:
+
+```bash
+[me@linuxbox ~]$ less /etc/passwd
+```
+
+Nach dem Start von `less` wird der Inhalt der Datei angezeigt. Ist die Datei länger als eine Bildschirmseite, kannst du darin nach oben und unten scrollen.
+
+Zum Beenden drückst du einfach **`q`**.
+
+Die folgende Tabelle zeigt die wichtigsten Tastenkombinationen von `less`.
+
+## Tabelle 3-3: Wichtige Tastenkombinationen in `less`
+
+| Taste | Funktion |
+|-------|----------|
+| `Page Up` oder `b` | Eine Seite zurückblättern |
+| `Page Down` oder `Leertaste` | Eine Seite vorblättern |
+| `↑` | Eine Zeile nach oben |
+| `↓` | Eine Zeile nach unten |
+| `G` | Zum Ende der Datei springen |
+| `1G` oder `g` | Zum Anfang der Datei springen |
+| `/text` | Vorwärts nach `text` suchen |
+| `n` | Zum nächsten Treffer der letzten Suche springen |
+| `h` | Die Hilfe anzeigen |
+| `q` | `less` beenden |
