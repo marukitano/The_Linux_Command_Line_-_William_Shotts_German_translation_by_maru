@@ -229,3 +229,149 @@ Die folgende Tabelle zeigt die wichtigsten Tastenkombinationen von `less`.
 | `n` | Zum nächsten Treffer der letzten Suche springen |
 | `h` | Die Hilfe anzeigen |
 | `q` | `less` beenden |
+
+::: note
+## Warum heißt `less` eigentlich „less“?
+
+Der Name `less` ist ein Wortspiel. Das Programm wurde als verbesserter Nachfolger eines älteren Unix-Programms namens `more` entwickelt.
+
+Während `more` nur vorwärts durch eine Datei blättern konnte, ermöglicht `less` das Blättern in beide Richtungen und bietet viele weitere Funktionen.
+
+Der Name spielt auf den englischen Ausspruch **„Less is more“** („Weniger ist mehr“) an – ein bekanntes Motto aus Architektur und Design.
+:::
+
+## Auf Entdeckungstour
+
+Der Aufbau des Dateisystems unter Linux ähnelt dem anderer Unix-ähnlicher Betriebssysteme. Tatsächlich gibt es dafür sogar einen offiziellen Standard: den **Filesystem Hierarchy Standard (FHS)**. Zwar halten sich nicht alle Linux-Distributionen bis ins kleinste Detail daran, die meisten orientieren sich jedoch sehr eng an diesem Standard.
+
+Jetzt machen wir uns auf eine kleine Entdeckungstour durch das Dateisystem und schauen uns an, was unser Linux-System im Innersten zusammenhält. Dabei kannst du gleichzeitig deine Navigationskenntnisse vertiefen.
+
+Unterwegs wirst du feststellen, dass viele interessante Dateien ganz gewöhnliche Textdateien sind.
+
+Versuche bei jedem Verzeichnis, das wir besuchen, Folgendes:
+
+1. Wechsle mit `cd` in das Verzeichnis.
+2. Lass dir den Inhalt mit `ls -l` anzeigen.
+3. Entdeckst du eine interessante Datei, untersuche sie mit `file`.
+4. Handelt es sich wahrscheinlich um eine Textdatei, öffne sie mit `less`.
+5. Falls du versehentlich eine Binärdatei mit `less` öffnest und dadurch die Terminalanzeige durcheinandergerät, kannst du sie mit dem Befehl `reset` wieder zurücksetzen.
+
+::: note
+**Hinweis:** Erinnere dich an die Kopier- und Einfügefunktion des Terminals. Du kannst einen Dateinamen markieren und mit **`Ctrl` + `Shift` + `C`** kopieren. Mit **`Ctrl` + `Shift` + `V`** fügst du ihn anschließend bequem in den nächsten Befehl ein.
+:::
+
+Hab keine Scheu, dich ein wenig umzusehen. Als normaler Benutzer kannst du in den meisten Verzeichnissen keinen Schaden anrichten – dafür müsste man schon Systemadministrator sein.
+
+Falls ein Befehl einmal eine Fehlermeldung ausgibt, ist das kein Problem. Probier einfach etwas anderes aus.
+
+Nimm dir ruhig Zeit zum Entdecken.
+
+Das System gehört dir.
+
+Erkunde es.
+
+Und vergiss nicht: Unter Linux gibt es keine Geheimnisse.
+
+In Tabelle 3-4 findest du einige Verzeichnisse, mit denen du beginnen kannst. Je nach Linux-Distribution können sie leicht unterschiedlich aussehen. Schau dich ruhig auch darüber hinaus um – es gibt jede Menge zu entdecken.
+
+## Tabelle 3-4: Wichtige Verzeichnisse unter Linux
+
+| Verzeichnis | Beschreibung |
+|-------------|--------------|
+| `/` | Das **Wurzelverzeichnis**. Hier beginnt der gesamte Verzeichnisbaum. |
+| `/bin` | Enthält wichtige Programme, die zum Starten und Betreiben des Systems benötigt werden. Auf modernen Linux-Systemen ist `/bin` meist nur noch ein symbolischer Link auf `/usr/bin`. |
+| `/boot` | Enthält den Linux-Kernel sowie Dateien, die zum Starten des Systems benötigt werden, darunter den Bootloader und die Initial-RAM-Disk. Interessant sind unter anderem `grub.cfg` und die Kernel-Datei `vmlinuz`. |
+| `/dev` | Enthält **Gerätedateien** (_Device Nodes_). Unter Linux werden auch Hardwaregeräte als Dateien dargestellt. |
+| `/etc` | Enthält die systemweiten Konfigurationsdateien. Die meisten davon sind einfache Textdateien. Besonders interessant sind `crontab`, `fstab` und `passwd`. |
+| `/home` | Hier befinden sich die Home-Verzeichnisse der Benutzer. Eigene Dateien und Einstellungen werden in der Regel hier gespeichert. |
+| `/lib` | Enthält gemeinsam genutzte Bibliotheken für Systemprogramme. Auf modernen Distributionen verweist dieses Verzeichnis meist auf `/usr/lib`. |
+| `/lost+found` | Wird von Dateisystemen wie ext4 für die Wiederherstellung beschädigter Dateisysteme verwendet. Im Normalfall bleibt dieses Verzeichnis leer. |
+| `/media` | Einhängepunkte für Wechseldatenträger wie USB-Sticks oder DVDs, die automatisch eingebunden werden. |
+| `/mnt` | Traditioneller Ort zum manuellen Einhängen von Dateisystemen. |
+| `/opt` | Installationsort für zusätzliche oder kommerzielle Software, die nicht zur Distribution gehört. |
+| `/proc` | Ein **virtuelles Dateisystem**, das Informationen über den Kernel und laufende Prozesse bereitstellt. Die Dateien existieren nicht auf der Festplatte, sondern werden vom Kernel dynamisch erzeugt. |
+| `/root` | Das Home-Verzeichnis des Benutzers `root`. |
+| `/run` | Enthält Laufzeitinformationen des Systems. Dieses Verzeichnis liegt im Arbeitsspeicher und wird bei jedem Systemstart neu erstellt. |
+| `/sbin` | Enthält wichtige Systemprogramme für die Administration. Auf modernen Distributionen ist `/sbin` meist ein symbolischer Link auf `/usr/sbin`. |
+| `/sys` | Ein virtuelles Dateisystem mit detaillierten Informationen über Geräte und Hardware, die vom Kernel erkannt wurden. |
+| `/tmp` | Hier legen Programme temporäre Dateien ab. Viele Distributionen leeren dieses Verzeichnis beim Neustart automatisch. |
+| `/usr` | Das größte Verzeichnis eines Linux-Systems. Es enthält Programme, Bibliotheken und gemeinsam genutzte Daten für Benutzerprogramme. |
+| `/usr/bin` | Enthält die meisten ausführbaren Programme eines Linux-Systems. |
+| `/usr/lib` | Bibliotheken, die von den Programmen in `/usr/bin` verwendet werden. |
+| `/usr/local` | Hier werden Programme installiert, die nicht zur Linux-Distribution gehören. Selbst kompilierte Software landet häufig in `/usr/local/bin`. |
+| `/usr/sbin` | Weitere Programme für die Systemadministration. |
+| `/usr/share` | Gemeinsam genutzte Daten wie Symbole, Übersetzungen, Dokumentationen, Hintergrundbilder und Standardkonfigurationen. |
+| `/usr/share/doc` | Dokumentation installierter Programme und Pakete. |
+| `/var` | Enthält Daten, die sich während des Betriebs verändern, etwa Datenbanken, Caches, E-Mails oder Logdateien. |
+| `/var/log` | Protokolldateien des Systems. Hier kannst du nachvollziehen, was auf deinem Computer passiert. |
+| `~/.config` | Benutzerspezifische Konfigurationsdateien von Desktop-Anwendungen (XDG-Standard). |
+| `~/.local` | Benutzerspezifische Programme und Anwendungsdaten (XDG-Standard). |
+| \`~/.cache\` | Enthält Zwischenspeicher (\*Caches\*) von Programmen. Hier legen Anwendungen Daten ab, die sie schneller starten oder arbeiten lassen. Der Inhalt dieses Verzeichnisses kann in der Regel gefahrlos gelöscht werden, da die Programme ihn bei Bedarf automatisch neu erstellen. |
+
+## Symbolische Links
+
+Beim Erkunden des Dateisystems wirst du wahrscheinlich früher oder später auf einen Eintrag wie diesen stoßen (zum Beispiel in `/usr/lib`):
+
+```text
+lrwxrwxrwx 1 root root 11 2025-08-11 07:34 libc.so.6 -> libc-2.6.so
+```
+
+Vielleicht fällt dir auf, dass die erste Spalte mit einem **`l`** beginnt und der Eintrag scheinbar zwei Dateinamen enthält.
+
+Dabei handelt es sich um einen **symbolischen Link** (englisch: _symbolic link_), oft auch **Symlink** genannt.
+
+Unter Linux kann eine Datei unter mehreren Namen erreichbar sein. Auf den ersten Blick wirkt das vielleicht ungewöhnlich, tatsächlich ist es aber eine äußerst praktische Funktion.
+
+Nehmen wir an, ein Programm benötigt eine gemeinsam genutzte Bibliothek mit dem Namen `foo`. Von dieser Bibliothek erscheinen regelmäßig neue Versionen. Damit jederzeit erkennbar ist, welche Version installiert ist, bietet es sich an, die Versionsnummer in den Dateinamen aufzunehmen – zum Beispiel `foo-2.6`.
+
+Dadurch entsteht allerdings ein Problem: Würden alle Programme direkt auf `foo-2.6` verweisen, müsste jedes einzelne Programm nach einem Update angepasst werden, damit es stattdessen `foo-2.7` verwendet.
+
+Genau hier kommen symbolische Links ins Spiel.
+
+Angenommen, du installierst `foo-2.6` und legst anschließend einen symbolischen Link mit dem Namen `foo` an, der auf `foo-2.6` verweist.
+
+Greift nun ein Programm auf `foo` zu, öffnet Linux automatisch die Datei `foo-2.6`.
+
+Alle sind zufrieden:
+
+- Programme können weiterhin einfach `foo` verwenden.
+- Gleichzeitig bleibt jederzeit sichtbar, welche Version tatsächlich installiert ist.
+
+Erscheint später `foo-2.7`, musst du lediglich den symbolischen Link aktualisieren, sodass er auf die neue Version zeigt. Die Programme selbst müssen nicht geändert werden.
+
+Ein weiterer Vorteil: Mehrere Versionen können gleichzeitig installiert sein. Sollte sich beispielsweise herausstellen, dass `foo-2.7` einen Fehler enthält (ja, so etwas kommt vor 😉), genügt es, den symbolischen Link wieder auf `foo-2.6` zeigen zu lassen.
+
+Das Beispiel vom Anfang dieses Abschnitts zeigt genau dieses Prinzip:
+
+```text
+libc.so.6 -> libc-2.6.so
+```
+
+Programme greifen auf `libc.so.6` zu, tatsächlich verwendet das System aber die Datei `libc-2.6.so`.
+
+Wie du eigene symbolische Links erstellst, lernst du im nächsten Kapitel.
+
+## Hardlinks
+
+Neben symbolischen Links gibt es noch eine zweite Art von Verknüpfungen: **Hardlinks**.
+
+Auch Hardlinks ermöglichen es, eine Datei unter mehreren Namen erreichbar zu machen. Sie funktionieren jedoch nach einem anderen Prinzip als symlinks.
+
+Den Unterschied zwischen symlinks und Hardlinks schauen wir uns im nächsten Kapitel genauer an.
+
+## Zusammenfassung
+
+Auf unserer kleinen Entdeckungstour hast du viele wichtige Bereiche eines Linux-Systems kennengelernt. Du hast verschiedene Verzeichnisse erkundet, Dateien untersucht und erste Einblicke in den Aufbau des Systems gewonnen.
+
+Vor allem hast du gesehen, wie offen Linux aufgebaut ist. Viele wichtige Dateien sind als einfacher, menschenlesbarer Text gespeichert. Anders als bei vielen proprietären Betriebssystemen kannst du unter Linux nahezu alles ansehen, untersuchen und verstehen.
+
+## Weiterführende Informationen
+
+- **Filesystem Hierarchy Standard (FHS)**
+<https://refspecs.linuxfoundation.org/fhs.shtml>
+
+- **Verzeichnisstruktur von Unix und Unix-ähnlichen Betriebssystemen**
+<https://en.wikipedia.org/wiki/Unix_directory_structure>
+
+- **ASCII – Der klassische Zeichensatz für Textdateien**
+<https://en.wikipedia.org/wiki/ASCII>
