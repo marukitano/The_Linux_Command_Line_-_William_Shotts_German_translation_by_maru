@@ -1,6 +1,4 @@
-from pathlib import Path
-
-content = """# Übersetzungsleitfaden
+# Übersetzungsleitfaden
 
 ## Ziel
 
@@ -165,7 +163,6 @@ Besonders zu prüfen sind:
 
 Bei Unsicherheiten soll die Bedeutung des Originals Vorrang vor einer besonders freien Formulierung haben.
 
-
 ## Platzhalter in Befehlen
 
 Platzhalter in Befehlen, Syntaxangaben und Codebeispielen bleiben grundsätzlich auf Englisch.
@@ -213,6 +210,40 @@ Für Markdown gelten folgende Grundregeln:
 - Überschriften folgen einer klaren Hierarchie.
 - Absätze bleiben eher kurz.
 
+### Hinweise
+
+Hinweise werden immer als `note`-Block formatiert:
+
+```markdown
+:::note
+Hier steht der Hinweis.
+:::
+```
+
+Andere Blocktypen wie `warning` oder einfache Zitatblöcke werden für normale Hinweise nicht verwendet.
+
+### Ausgabe vollständiger Markdown-Abschnitte im Chat
+
+Wenn eine vollständige Übersetzung als kopierbarer Markdown-Block ausgegeben wird, muss der äußere Codeblock mit **vier Backticks** geöffnet und geschlossen werden. So bleiben innere Codeblöcke mit drei Backticks vollständig erhalten und beenden den äußeren Block nicht versehentlich.
+
+Beispiel:
+
+`````text
+````markdown
+### Überschrift
+
+Text
+
+```text
+Befehl oder Terminalausgabe
+```
+
+Weiterer Text
+````
+`````
+
+Die gesamte Übersetzung muss innerhalb dieses äußeren Blocks stehen. Es darf kein Teil des übersetzten Abschnitts außerhalb des kopierbaren Markdown-Blocks landen.
+
 ## Konsistenz
 
 Die Übersetzung soll im gesamten Buch wie aus einer Hand wirken.
@@ -244,9 +275,3 @@ Eine Formulierung darf sich vom englischen Satzbau lösen, solange Inhalt, Aussa
 Für neue Übersetzungen kann folgende Anweisung verwendet werden:
 
 > Übersetze den folgenden Abschnitt nach dem Übersetzungsleitfaden dieses Projekts: natürliches, modernes Hochdeutsch, locker, direkt, leicht nerdig und technisch präzise. Übersetze die Wirkung statt starr den Wortlaut. Erhalte Rhythmus, kurze Absätze und dramaturgische Betonungen. Verwende gebräuchliche Linux-Fachbegriffe und erfinde keine neuen Inhalte.
-"""
-
-path = Path("/mnt/data/translation_style.md")
-path.write_text(content, encoding="utf-8")
-print(f"Erstellt: {path}")
-
