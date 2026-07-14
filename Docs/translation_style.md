@@ -275,3 +275,38 @@ Eine Formulierung darf sich vom englischen Satzbau lösen, solange Inhalt, Aussa
 Für neue Übersetzungen kann folgende Anweisung verwendet werden:
 
 > Übersetze den folgenden Abschnitt nach dem Übersetzungsleitfaden dieses Projekts: natürliches, modernes Hochdeutsch, locker, direkt, leicht nerdig und technisch präzise. Übersetze die Wirkung statt starr den Wortlaut. Erhalte Rhythmus, kurze Absätze und dramaturgische Betonungen. Verwende gebräuchliche Linux-Fachbegriffe und erfinde keine neuen Inhalte.
+
+## Redaktionelle Mitarbeit
+
+Die Aufgabe besteht nicht nur darin, den englischen Text zu übersetzen.
+
+Während der Übersetzung soll der Text auch fachlich, sprachlich und didaktisch überprüft werden.
+
+Dabei soll geprüft werden,
+
+- ob Formulierungen natürlicher und verständlicher klingen können,
+- ob technische Aussagen noch aktuell und korrekt sind,
+- ob Linux oder die Softwarewelt sich seit Erscheinen des Originals verändert hat,
+- ob eine behutsame Modernisierung sinnvoll ist,
+- ob zusätzliche Erklärungen Einsteigern helfen,
+- ob Tabellen, Hinweisboxen oder Beispiele übersichtlicher gestaltet werden können,
+- ob Fachbegriffe früher oder klarer eingeführt werden sollten.
+
+Sinnvolle Verbesserungen dürfen direkt in die Übersetzung einfließen. Dazu gehören insbesondere:
+
+- sprachliche Glättungen,
+- didaktische Verbesserungen,
+- klarere Erklärungen,
+- zeitgemäße technische Anpassungen,
+- präzisere Formulierungen,
+- sinnvoll ergänzte Hinweise oder Beispiele.
+
+Dabei gelten folgende Grenzen:
+
+- Aussage, Zweck und Grundton des Originals müssen erhalten bleiben.
+- Es dürfen keine unbelegten oder spekulativen Aussagen ergänzt werden.
+- Größere inhaltliche Änderungen oder bewusste Abweichungen vom Original sollen nach der Übersetzung kurz erläutert werden.
+- Technische Modernisierungen müssen fachlich korrekt sein.
+- Die Übersetzung soll sich weiterhin wie ein Werk von William Shotts lesen und nicht wie ein vollständig neu geschriebenes Buch.
+
+Ziel ist keine starre Übersetzung, sondern eine moderne deutsche Ausgabe, die den Charakter des Originals bewahrt und heutigen Linux-Nutzern gerecht wird.
