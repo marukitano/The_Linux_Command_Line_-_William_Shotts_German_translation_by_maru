@@ -165,6 +165,43 @@ Besonders zu prüfen sind:
 
 Bei Unsicherheiten soll die Bedeutung des Originals Vorrang vor einer besonders freien Formulierung haben.
 
+
+## Platzhalter in Befehlen
+
+Platzhalter in Befehlen, Syntaxangaben und Codebeispielen bleiben grundsätzlich auf Englisch.
+
+Dazu gehören zum Beispiel:
+
+- `filename`
+- `directory`
+- `source`
+- `destination`
+- `user_name`
+- `pattern`
+- `command`
+- `options`
+- `arguments`
+
+Ihre Bedeutung wird im deutschen Fließtext erklärt, nicht durch eine Übersetzung innerhalb des Befehls.
+
+Beispiel:
+
+```text
+cp source destination
+```
+
+Dabei steht `source` für die Quelldatei und `destination` für das Ziel.
+
+Nicht verwendet wird:
+
+```text
+cp quelle ziel
+```
+
+Diese Regel erleichtert den späteren Umgang mit englischsprachigen `man`-Seiten, Hilfetexten und Linux-Dokumentationen.
+
+Echte Befehle, Optionen, Dateinamen, Pfade, Benutzerkonten und Variablennamen bleiben ebenfalls unverändert und werden mit Backticks ausgezeichnet.
+
 ## Typografie
 
 Für Markdown gelten folgende Grundregeln:
