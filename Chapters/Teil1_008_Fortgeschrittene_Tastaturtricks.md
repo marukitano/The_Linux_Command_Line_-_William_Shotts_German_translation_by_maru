@@ -450,6 +450,14 @@ Die Zahl am Anfang ist die **Nummer des Befehls im Verlauf**.
 
 Mit ihr lässt sich der Befehl direkt erneut ausführen.
 
+:::note
+## Was macht `grep`?
+
+`grep` durchsucht Text nach einem bestimmten Suchbegriff und gibt alle passenden Zeilen aus.
+
+Eine ausführliche Einführung in `grep` folgt in einem späteren Kapitel. Für dieses Beispiel genügt es zu wissen, dass `grep` Zeilen filtert, die den angegebenen Suchtext enthalten.
+:::
+
 ## Befehle über ihre Nummer ausführen
 
 Bash besitzt eine besondere Form der Expansion: die **History Expansion**.
@@ -784,5 +792,4 @@ Nimm dir zunächst die Funktionen mit, die dir im Alltag am meisten helfen, und 
 # Weiterführende Literatur
 
 - Wikipedia bietet einen guten Überblick über die Geschichte und Entwicklung von Computerterminals:
-
-  https://en.wikipedia.org/wiki/Computer_terminal
+https://en.wikipedia.org/wiki/Computer_terminal
