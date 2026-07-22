@@ -33,7 +33,7 @@ Dadurch bleibt das Projekt:
 
 Für die Rohübersetzung wird abschnittsweise **ChatGPT** eingesetzt. Jeder Abschnitt wird anschließend sorgfältig geprüft, sprachlich überarbeitet und bei Bedarf an Stil, Lesbarkeit und fachliche Genauigkeit angepasst.
 
-Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate wie PDF, HTML oder EPUB erzeugt werden. ACHTUNG: Wir haben nur die Erlaubnis für PDF und HTML
+Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate generiert werden. ACHTUNG: Wir haben nur die Erlaubnis für PDF.
 
 ## Mitmachen
 
