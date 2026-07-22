@@ -536,7 +536,7 @@ Es verwendet nur die Ziffern
 und zählt deshalb so:
 
 ```text
-0, 1, 2, 3, 4, 5, 6, 7, ...
+0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 13, 14, 15, 16, 17, 20, 21, ...
 ```
 
 Daneben gibt es noch das **Hexadezimalsystem** (_Basis 16_).
@@ -552,8 +552,6 @@ und zählt beispielsweise:
 ```text
 0, 1, 2, ..., 9, A, B, C, D, E, F, 10, 11 ...
 ```
-
----
 
 ## Warum verwendet Linux überhaupt Oktal?
 
@@ -717,8 +715,6 @@ In der Praxis begegnen dir fast ausschließlich diese fünf:
 Aus ihnen lassen sich praktisch alle üblichen Berechtigungen zusammensetzen.
 :::
 
----
-
 ## Symbolische Schreibweise
 
 Neben Zahlen unterstützt `chmod` auch eine besser lesbare Schreibweise.
@@ -756,8 +752,6 @@ Wie gewohnt werden die drei Buchstaben verwendet:
 r  w  x
 ```
 
----
-
 ## Beispiele
 
 | Befehl | Bedeutung |
@@ -770,8 +764,6 @@ r  w  x
 | `chmod u+x,go=rx datei` | Besitzer erhält zusätzlich Ausführungsrecht. Gruppe und Andere erhalten genau Lese- und Ausführungsrechte. |
 
 Mehrere Änderungen können durch Kommas getrennt werden.
-
----
 
 ## Oktal oder symbolisch?
 
@@ -856,8 +848,6 @@ Wer jedoch häufiger mit Linux arbeitet oder viele Dateien gleichzeitig bearbeit
 Gerade in Shell-Skripten oder bei der Administration mehrerer Systeme führt ohnehin kein Weg an der Kommandozeile vorbei.
 :::
 
----
-
 # `umask` – Standardberechtigungen festlegen
 
 Bisher haben wir gesehen, wie sich Berechtigungen **nachträglich** mit `chmod` ändern lassen.
@@ -916,8 +906,6 @@ Der Besitzer und die Gruppe dürfen lesen und schreiben.
 
 Alle anderen besitzen nur Leserechte.
 
----
-
 ## Die Umask ändern
 
 Setzen wir die Umask nun testweise auf
@@ -939,8 +927,6 @@ Jetzt dürfen plötzlich **alle Benutzer schreiben**.
 Warum?
 
 Weil die Umask diesmal keinerlei Rechte entfernt.
-
----
 
 ## Wie funktioniert die Umask?
 
@@ -1062,8 +1048,6 @@ verwenden dieses Prinzip, damit jeder Benutzer sein eigenes Passwort ändern kan
 
 Da Programme mit `setuid` erhöhte Rechte besitzen, sollten sie äußerst sparsam eingesetzt werden.
 
----
-
 ## `setgid`
 
 Das **setgid-Bit**
@@ -1081,8 +1065,6 @@ Noch häufiger wird `setgid` jedoch auf **Verzeichnissen** verwendet.
 Neue Dateien erhalten dann automatisch dieselbe Gruppe wie das Verzeichnis – unabhängig davon, welche primäre Gruppe ihr Ersteller besitzt.
 
 Das ist besonders praktisch in gemeinsam genutzten Projektverzeichnissen.
-
----
 
 ## Das Sticky Bit
 
@@ -1124,8 +1106,6 @@ Moderne Linux-Systeme ignorieren dieses Verhalten.
 Heute spielt das Sticky Bit praktisch nur noch bei Verzeichnissen eine Rolle.
 :::
 
----
-
 ## Besondere Berechtigungen setzen
 
 Die symbolische Schreibweise ist meist am einfachsten.
@@ -1147,8 +1127,6 @@ chmod g+s verzeichnis
 ```bash
 chmod +t verzeichnis
 ```
-
----
 
 ## Besondere Berechtigungen erkennen
 
@@ -1188,4 +1166,474 @@ Im normalen Linux-Alltag wirst du hauptsächlich mit den klassischen Berechtigun
 Es genügt zunächst zu wissen, **dass** sie existieren und welchen grundsätzlichen Zweck sie erfüllen.
 
 Später, wenn du Systeme administrierst oder Server betreust, wirst du ihnen automatisch häufiger begegnen.
+:::
+
+# Benutzeridentitäten wechseln
+
+Bisher haben wir alle Befehle unter unserem eigenen Benutzerkonto ausgeführt.
+
+Manchmal ist es jedoch notwendig, vorübergehend **die Identität eines anderen Benutzers anzunehmen**.
+
+Am häufigsten geschieht das, um administrative Aufgaben als **`root`** auszuführen.
+
+Es kann aber auch sinnvoll sein, sich als ein anderer normaler Benutzer auszugeben – beispielsweise, um dessen Einstellungen oder Berechtigungen zu testen.
+
+Dafür gibt es grundsätzlich drei Möglichkeiten:
+
+1. Abmelden und als anderer Benutzer wieder anmelden.
+2. Den Befehl `su` verwenden.
+3. Den Befehl `sudo` verwenden.
+
+Die erste Möglichkeit kennen wir bereits und sie ist im Alltag eher umständlich.
+
+Deshalb konzentrieren wir uns auf die beiden Befehle `su` und `sudo`.
+
+Mit `su` kannst du innerhalb deiner aktuellen Shell die Identität eines anderen Benutzers annehmen. Dabei lässt sich entweder eine neue Shell starten oder nur ein einzelner Befehl als dieser Benutzer ausführen.
+
+`sudo` verfolgt einen anderen Ansatz.
+
+Hier entscheidet eine Konfigurationsdatei namens
+
+```text
+/etc/sudoers
+```
+
+welche Benutzer welche Befehle mit erweiterten Rechten ausführen dürfen.
+
+Welche der beiden Methoden hauptsächlich verwendet wird, hängt von deiner Linux-Distribution ab.
+
+Die meisten Distributionen bringen zwar beide Programme mit, bevorzugen heute jedoch `sudo`.
+
+Wir beginnen trotzdem mit `su`, da sich daran gut erklären lässt, wie Benutzeridentitäten unter Linux funktionieren.
+
+:::
+## `su` oder `sudo`?
+
+Früher wurde für administrative Aufgaben häufig `su` verwendet.
+
+Heute setzen fast alle Linux-Distributionen standardmäßig auf `sudo`.
+
+Der Grund ist einfach:
+
+Mit `sudo` lassen sich einzelnen Benutzern gezielt bestimmte Administratorrechte geben, ohne ihnen das `root`-Passwort verraten zu müssen.
+
+Dadurch lässt sich besser nachvollziehen, **wer** welche administrativen Befehle ausgeführt hat.
+:::
+
+---
+
+# `su` – Eine Shell als anderer Benutzer starten
+
+Der Name `su` steht für **Substitute User**.
+
+Mit diesem Befehl kannst du eine neue Shell als ein anderer Benutzer starten.
+
+Die Syntax lautet:
+
+```bash
+su [-l] [Benutzer]
+```
+
+Wird die Option
+
+```text
+-l
+```
+
+angegeben, startet `su` eine sogenannte **Login-Shell**.
+
+Dabei geschieht Folgendes:
+
+- die Umgebung des Benutzers wird geladen,
+- seine Shell-Konfiguration wird eingelesen,
+- und das aktuelle Arbeitsverzeichnis wechselt in sein Home-Verzeichnis.
+
+Genau dieses Verhalten ist in den meisten Fällen erwünscht.
+
+Aus diesem Grund wird `-l` fast immer verwendet.
+
+Praktischerweise darf die Option einfach als einzelnes Minuszeichen geschrieben werden:
+
+```bash
+su -
+```
+
+Lässt du den Benutzernamen weg, geht `su` automatisch davon aus, dass du `root` meinst.
+
+---
+
+## Zu `root` wechseln
+
+Früher besaß der Benutzer `root` normalerweise ein eigenes Passwort.
+
+Dann konnte man mit folgendem Befehl Administrator werden:
+
+```bash
+[me@linuxbox ~]$ su -
+Password:
+[root@linuxbox ~]#
+```
+
+Nach Eingabe des korrekten Passworts startet eine neue Shell.
+
+Dass du nun als Administrator arbeitest, erkennst du sofort am Prompt:
+
+```text
+#
+```
+
+anstelle von
+
+```text
+$
+```
+
+Außerdem befindest du dich nun im Home-Verzeichnis von `root`, das normalerweise
+
+```text
+/root
+```
+
+heißt.
+
+Jetzt kannst du beliebige Administratorbefehle ausführen.
+
+Zum Verlassen genügt anschließend:
+
+```bash
+[root@linuxbox ~]# exit
+[me@linuxbox ~]$
+```
+
+Damit kehrst du wieder zu deiner ursprünglichen Shell zurück.
+
+:::
+## Warum funktioniert `su` auf vielen Systemen nicht?
+
+Auf modernen Linux-Distributionen besitzt der Benutzer `root` häufig **gar kein eigenes Passwort**.
+
+Stattdessen wird das Administratorkonto standardmäßig gesperrt und administrative Aufgaben erfolgen ausschließlich über `sudo`.
+
+Versuchst du auf einem solchen System `su -`, erhältst du daher meist nur eine Passwortabfrage, die sich nicht erfolgreich beantworten lässt.
+
+Das ist kein Fehler, sondern eine bewusste Sicherheitsentscheidung der Distribution.
+:::
+
+---
+
+## Einen einzelnen Befehl ausführen
+
+Nicht immer möchte man eine komplette neue Shell starten.
+
+`su` kann auch genau einen einzelnen Befehl als anderer Benutzer ausführen.
+
+Dazu dient die Option
+
+```bash
+-c
+```
+
+Die Syntax lautet:
+
+```bash
+su -c 'Befehl'
+```
+
+Beispiel:
+
+```bash
+[me@linuxbox ~]$ su -c 'ls -l /root/*'
+Password:
+-rw------- 1 root root 754 2025-08-11 03:19 /root/anaconda-ks.cfg
+
+/root/Mail:
+total 0
+[me@linuxbox ~]$
+```
+
+Hier wird lediglich der Befehl
+
+```bash
+ls -l /root/*
+```
+
+mit den Rechten von `root` ausgeführt.
+
+Danach kehrt `su` sofort wieder zu deiner normalen Shell zurück.
+
+---
+
+## Warum stehen Anführungszeichen um den Befehl?
+
+Der Befehl wird bewusst in einfache Anführungszeichen gesetzt:
+
+```bash
+su -c 'ls -l /root/*'
+```
+
+Der Grund dafür ist die **Shell Expansion**, die wir bereits in Kapitel 7 kennengelernt haben.
+
+Ohne die Anführungszeichen würde deine aktuelle Shell den Befehl bereits auswerten, bevor `su` ihn überhaupt erhält.
+
+Mit den einfachen Anführungszeichen wird der gesamte Befehl unverändert an die neue Shell übergeben.
+
+Erst dort werden beispielsweise Wildcards wie
+
+```text
+*
+```
+
+oder Variablen ausgewertet.
+
+Dadurch arbeitet der Befehl genau so, als wäre er direkt in der neuen Shell eingegeben worden.
+
+:::
+## Warum einfache und keine doppelten Anführungszeichen?
+
+Für `su -c` werden meist **einfache Anführungszeichen** (`'...'`) verwendet.
+
+Sie verhindern zuverlässig, dass Variablen, Wildcards oder andere Shell-Erweiterungen bereits in der aktuellen Shell ausgewertet werden.
+
+Die neue Shell erhält den Befehl dadurch unverändert und kann ihn selbst interpretieren.
+:::
+
+# `sudo` – Einen Befehl als anderer Benutzer ausführen
+
+Der Befehl `sudo` ähnelt `su`, besitzt jedoch einige wichtige zusätzliche Möglichkeiten.
+
+Ein Administrator kann `sudo` so konfigurieren, dass ein normaler Benutzer bestimmte Befehle unter der Identität eines anderen Benutzers ausführen darf – meistens als `root`.
+
+Dabei lässt sich sehr genau festlegen,
+
+- welcher Benutzer `sudo` verwenden darf,
+- als welcher andere Benutzer ein Befehl ausgeführt wird,
+- und welche Befehle erlaubt sind.
+
+Ein Benutzer kann beispielsweise die Berechtigung erhalten, genau ein bestimmtes Verwaltungsprogramm auszuführen, ohne dadurch vollständigen Zugriff auf das gesamte System zu bekommen.
+
+---
+
+## Das eigene Passwort statt des `root`-Passworts
+
+Ein wichtiger Unterschied zu `su` besteht in der Anmeldung.
+
+Bei `su` wird normalerweise das Passwort des Zielbenutzers verlangt – beim Wechsel zu `root` also das `root`-Passwort.
+
+Bei `sudo` gibst du dagegen **dein eigenes Passwort** ein.
+
+Angenommen, ein fiktives Sicherungsprogramm namens `backup_script` benötigt Administratorrechte und wurde für deinen Benutzer freigegeben.
+
+Dann könnte der Aufruf so aussehen:
+
+```bash
+[me@linuxbox ~]$ sudo backup_script
+Password:
+System Backup Starting...
+```
+
+Nach Eingabe deines Passworts prüft `sudo`, ob du diesen Befehl ausführen darfst.
+
+Ist das der Fall, wird ausschließlich der angegebene Befehl mit den entsprechenden Rechten gestartet.
+
+:::note
+## Welches Passwort erwartet `sudo`?
+
+`sudo` fragt normalerweise nach dem Passwort des **aktuell angemeldeten Benutzers**.
+
+Es erwartet nicht das Passwort von `root`.
+
+Das ist ein häufiger Stolperstein, wenn man `sudo` zum ersten Mal verwendet.
+:::
+
+---
+
+## `sudo` startet normalerweise keine neue Shell
+
+Bei einem gewöhnlichen Aufruf wie
+
+```bash
+sudo befehl
+```
+
+startet `sudo` keine dauerhafte neue Shell.
+
+Es führt lediglich diesen einen Befehl mit einer anderen Identität aus und kehrt danach zur normalen Shell zurück.
+
+Auch die vollständige Umgebung eines anderen Benutzers wird dabei normalerweise nicht geladen.
+
+Deshalb schreibst du den Befehl grundsätzlich genauso, wie du ihn auch ohne `sudo` schreiben würdest:
+
+```bash
+sudo ls -l /root
+```
+
+Es sind keine zusätzlichen Anführungszeichen wie bei
+
+```bash
+su -c 'ls -l /root'
+```
+
+notwendig.
+
+Dieses Verhalten kann mit verschiedenen Optionen verändert werden.
+
+Eine interaktive Login-Shell als `root` lässt sich beispielsweise mit folgender Option starten:
+
+```bash
+sudo -i
+```
+
+Das verhält sich in vieler Hinsicht ähnlich wie:
+
+```bash
+su -
+```
+
+Zum Verlassen der Shell verwendest du wieder:
+
+```bash
+exit
+```
+
+:::note
+## `sudo -i` nicht unnötig lange offen lassen
+
+Mit `sudo -i` arbeitest du dauerhaft mit Administratorrechten, bis du die Shell wieder verlässt.
+
+Damit geht ein wichtiger Vorteil von `sudo` teilweise verloren: Normalerweise werden nur einzelne, bewusst ausgewählte Befehle mit erhöhten Rechten ausgeführt.
+
+Verwende eine dauerhafte `root`-Shell deshalb nur, wenn sie für mehrere zusammenhängende Arbeitsschritte wirklich nötig ist.
+:::
+
+---
+
+## Erlaubte Befehle anzeigen
+
+Mit der Option `-l` kannst du prüfen, welche Rechte dir über `sudo` zugewiesen wurden:
+
+```bash
+[me@linuxbox ~]$ sudo -l
+User me may run the following commands on this host:
+    (ALL) ALL
+```
+
+Die Ausgabe
+
+```text
+(ALL) ALL
+```
+
+bedeutet vereinfacht gesagt, dass der Benutzer `me` alle Befehle als beliebiger Benutzer ausführen darf.
+
+Auf stärker eingeschränkten Systemen könnten dort stattdessen nur einzelne Programme stehen.
+
+Beispielsweise:
+
+```text
+(root) /usr/bin/systemctl restart apache2
+```
+
+In diesem Fall dürfte der Benutzer ausschließlich diesen konkreten Befehl mit `root`-Rechten ausführen.
+
+---
+
+# Moderne Linux-Distributionen und `sudo`
+
+Eine der häufigsten Schwierigkeiten für normale Benutzer besteht darin, Aufgaben auszuführen, die Administratorrechte benötigen.
+
+Dazu gehören beispielsweise:
+
+- Software installieren oder aktualisieren,
+- Systemkonfigurationen bearbeiten,
+- Dienste starten oder stoppen,
+- auf geschützte Geräte oder Dateien zugreifen.
+
+Eine einfache Lösung wäre, einem Benutzer dauerhaft Administratorrechte zu geben.
+
+Das wäre allerdings gefährlich.
+
+Programme, die dieser Benutzer startet, würden dann ebenfalls mit denselben weitreichenden Rechten laufen. Schadsoftware oder ein versehentlich falsch eingegebener Befehl könnte dadurch das gesamte System verändern oder beschädigen.
+
+Unix-Systeme verfolgen traditionell einen anderen Ansatz:
+
+Normale Benutzer und Administratoren sind klar voneinander getrennt.
+
+Erweiterte Rechte werden nur dann verwendet, wenn sie tatsächlich benötigt werden.
+
+Dafür kamen historisch vor allem `su` und später zunehmend `sudo` zum Einsatz.
+
+---
+
+## Das Problem mit dauerhaften `root`-Sitzungen
+
+Frühere Linux-Distributionen verwendeten für administrative Aufgaben häufig `su`.
+
+Das war einfach einzurichten und entsprach der traditionellen Unix-Arbeitsweise mit einem eigenen `root`-Konto.
+
+Allerdings führte es zu einem praktischen Problem:
+
+Wer einmal mit
+
+```bash
+su -
+```
+
+eine `root`-Shell geöffnet hatte, blieb dort leicht länger als nötig.
+
+Manche Benutzer arbeiteten sogar dauerhaft als `root`, weil dadurch keine lästigen Meldungen wie
+
+```text
+Permission denied
+```
+
+mehr erschienen.
+
+Das ist jedoch eine sehr schlechte Idee.
+
+Als `root` gibt es kaum Schutz vor eigenen Fehlern. Ein falscher Befehl kann wichtige Systemdateien löschen, überschreiben oder unbrauchbar machen.
+
+Mit normalen Benutzerrechten ist der mögliche Schaden dagegen meist auf das eigene Home-Verzeichnis begrenzt.
+
+:::note
+## `sudo` schützt nicht vor jedem Fehler
+
+Auch ein mit `sudo` ausgeführter Befehl besitzt Administratorrechte.
+
+`sudo` macht einen gefährlichen Befehl also nicht ungefährlich.
+
+Der Sicherheitsgewinn besteht vor allem darin, dass erhöhte Rechte bewusst und gezielt nur für einzelne Befehle verwendet werden.
+:::
+
+---
+
+## Ubuntu und der Wechsel zu `sudo`
+
+Ubuntu ging bei seiner Einführung einen anderen Weg als viele frühere Linux-Distributionen.
+
+Standardmäßig wurde für das `root`-Konto kein direkt verwendbares Passwort eingerichtet. Eine normale Anmeldung als `root` war damit zunächst nicht vorgesehen.
+
+Stattdessen erhielt der erste angelegte Benutzer die Berechtigung, administrative Aufgaben mit `sudo` auszuführen.
+
+Weitere Benutzer konnten später ebenfalls entsprechende Rechte erhalten.
+
+Dieses Modell hat sich inzwischen bei den meisten modernen Desktop-Distributionen durchgesetzt.
+
+Der typische Ablauf lautet deshalb heute:
+
+```bash
+sudo befehl
+```
+
+statt zuerst dauerhaft zu `root` zu wechseln.
+
+Dadurch bleibt der Benutzer im normalen Alltag unprivilegiert und erhält Administratorrechte nur für die Befehle, bei denen sie wirklich notwendig sind.
+
+:::note
+## Eine präzisere Formulierung
+
+Es wird oft gesagt, Ubuntu habe das `root`-Konto „deaktiviert“.
+
+Genauer gesagt ist das Konto weiterhin vorhanden, denn das System benötigt den Benutzer `root`.
+
+Standardmäßig ist jedoch keine direkte Anmeldung mit einem `root`-Passwort vorgesehen. Administrative Aufgaben werden stattdessen über `sudo` ausgeführt.
 :::
