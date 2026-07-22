@@ -1637,3 +1637,625 @@ Genauer gesagt ist das Konto weiterhin vorhanden, denn das System benötigt den 
 
 Standardmäßig ist jedoch keine direkte Anmeldung mit einem `root`-Passwort vorgesehen. Administrative Aufgaben werden stattdessen über `sudo` ausgeführt.
 :::
+
+# `chown` – Besitzer und Gruppe ändern
+
+Mit dem Befehl `chown` lassen sich der **Besitzer** und die **Gruppe** einer Datei oder eines Verzeichnisses ändern.
+
+Dafür sind normalerweise Administratorrechte erforderlich.
+
+Die grundlegende Syntax lautet:
+
+```bash
+chown [Besitzer][:[Gruppe]] Datei ...
+```
+
+Je nachdem, wie das erste Argument geschrieben wird, ändert `chown`
+
+- nur den Besitzer,
+- nur die Gruppe,
+- oder beides gleichzeitig.
+
+## Beispiele
+
+| Argument | Wirkung |
+|----------|---------|
+| `bob` | Ändert den Besitzer zu `bob`. Die Gruppe bleibt unverändert. |
+| `bob:users` | Ändert den Besitzer zu `bob` und die Gruppe zu `users`. |
+| `:admins` | Ändert nur die Gruppe zu `admins`. Der Besitzer bleibt unverändert. |
+| `bob:` | Ändert den Besitzer zu `bob` und setzt die Gruppe auf die Login-Gruppe von `bob`. |
+
+:::note
+## Was bedeutet der Doppelpunkt?
+
+Der Doppelpunkt trennt bei `chown` den Benutzernamen von der Gruppe:
+
+```text
+Benutzer:Gruppe
+```
+
+Steht links oder rechts nichts, bleibt der entsprechende Teil entweder unverändert oder wird automatisch ergänzt.
+:::
+
+---
+
+## Beispiel: Eine Datei an einen anderen Benutzer übergeben
+
+Nehmen wir an, es gibt zwei Benutzer:
+
+- `alice` darf `sudo` verwenden.
+- `bob` besitzt keine Administratorrechte.
+
+Alice möchte eine Datei aus ihrem Home-Verzeichnis in Bobs Home-Verzeichnis kopieren.
+
+Bob soll die Datei anschließend selbst bearbeiten können.
+
+```bash
+[alice@linuxbox ~]$ sudo cp myfile.txt ~bob
+Password:
+```
+
+Danach prüfen wir die Datei:
+
+```bash
+[alice@linuxbox ~]$ sudo ls -l ~bob/myfile.txt
+-rw-r--r-- 1 root root 2025-03-20 14:30 /home/bob/myfile.txt
+```
+
+Die Datei gehört nun `root`.
+
+Das geschieht, weil `cp` mit `sudo` ausgeführt wurde.
+
+Alice ändert deshalb Besitzer und Gruppe:
+
+```bash
+[alice@linuxbox ~]$ sudo chown bob: ~bob/myfile.txt
+```
+
+Anschließend sieht die Datei so aus:
+
+```bash
+[alice@linuxbox ~]$ sudo ls -l ~bob/myfile.txt
+-rw-r--r-- 1 bob bob 2025-03-20 14:30 /home/bob/myfile.txt
+```
+
+Der Besitzer ist nun `bob`.
+
+Durch den abschließenden Doppelpunkt in
+
+```bash
+bob:
+```
+
+wurde außerdem die Gruppe auf Tonys Login-Gruppe gesetzt, die in diesem Beispiel ebenfalls `bob` heißt.
+
+:::note
+## Warum fragt `sudo` nicht jedes Mal nach dem Passwort?
+
+Nach einer erfolgreichen Anmeldung merkt sich `sudo` die Authentifizierung normalerweise für einige Minuten.
+
+Während dieser Zeit kannst du weitere erlaubte `sudo`-Befehle ausführen, ohne dein Passwort erneut einzugeben.
+
+Nach Ablauf dieses Zeitfensters wird es wieder verlangt.
+:::
+
+---
+
+# `chgrp` – Die Gruppe ändern
+
+In älteren Unix-Versionen konnte `chown` nur den Besitzer einer Datei ändern.
+
+Für den Gruppenbesitz gab es deshalb einen eigenen Befehl:
+
+```bash
+chgrp
+```
+
+Er funktioniert ähnlich wie `chown`, kann aber ausschließlich die Gruppe ändern.
+
+Beispiel:
+
+```bash
+chgrp music datei.mp3
+```
+
+Dasselbe lässt sich heute auch mit `chown` ausdrücken:
+
+```bash
+chown :music datei.mp3
+```
+
+---
+
+# Unsere Berechtigungen praktisch anwenden
+
+Nachdem wir nun wissen, wie Besitzer, Gruppen und Berechtigungen funktionieren, wenden wir das Ganze auf ein typisches Problem an:
+
+Wir richten ein gemeinsam genutztes Verzeichnis ein.
+
+Alice und Bob besitzen beide Musiksammlungen und möchten ihre Ogg-Vorbis- und MP3-Dateien in einem gemeinsamen Verzeichnis speichern.
+
+Alice besitzt über `sudo` Administratorrechte.
+
+---
+
+## Eine gemeinsame Gruppe anlegen
+
+Zuerst erstellen wir eine neue Gruppe namens `music`:
+
+```bash
+[alice@linuxbox ~]$ sudo groupadd music
+```
+
+Anschließend fügen wir Alice und Bob dieser Gruppe hinzu:
+
+```bash
+[alice@linuxbox ~]$ sudo usermod -a -G music alice
+[alice@linuxbox ~]$ sudo usermod -a -G music bob
+```
+
+Die Optionen bedeuten:
+
+- `-a` beziehungsweise `--append` → Benutzer zusätzlich zu einer Gruppe hinzufügen
+- `-G` beziehungsweise `--groups` → Liste zusätzlicher Gruppen festlegen
+
+Die Gruppenzugehörigkeiten werden in `/etc/group` gespeichert.
+
+:::note
+## Vorsicht bei `usermod -G`
+
+Die Option `-G` ersetzt ohne zusätzliches `-a` die bisherigen Zusatzgruppen eines Benutzers.
+
+Deshalb sollte zum Hinzufügen zu einer weiteren Gruppe fast immer beides gemeinsam verwendet werden:
+
+```bash
+usermod -a -G gruppe benutzer
+```
+:::
+
+:::note
+## Wann wird die neue Gruppenzugehörigkeit wirksam?
+
+Eine neu hinzugefügte Gruppenzugehörigkeit gilt normalerweise nicht sofort in bereits laufenden Sitzungen.
+
+Alice und Bob müssen sich daher ab- und wieder anmelden.
+
+Alternativ lässt sich für eine aktuelle Shell auch eine neue Sitzung mit der geänderten Gruppe starten, doch das behandeln wir hier nicht weiter.
+:::
+
+---
+
+## Das gemeinsame Verzeichnis erstellen
+
+Alice legt nun das gemeinsame Musikverzeichnis an:
+
+```bash
+[alice@linuxbox ~]$ sudo mkdir /usr/local/share/Music
+Password:
+```
+
+Da `/usr/local/share` außerhalb ihres Home-Verzeichnisses liegt, benötigt sie dafür Administratorrechte.
+
+Nach dem Erstellen prüfen wir Besitzer und Berechtigungen:
+
+```bash
+[alice@linuxbox ~]$ ls -ld /usr/local/share/Music
+drwxr-xr-x 2 root root 4096 2025-03-21 18:05 /usr/local/share/Music
+```
+
+Das Verzeichnis
+
+- gehört `root`,
+- besitzt die Gruppe `root`,
+- und hat den Modus `755`.
+
+In aufgeteilter Form:
+
+```text
+rwx r-x r-x
+```
+
+Damit kann nur `root` darin Dateien anlegen.
+
+---
+
+## Gruppe und Berechtigungen anpassen
+
+Zuerst ändern wir die Gruppe des Verzeichnisses:
+
+```bash
+[alice@linuxbox ~]$ sudo chown :music /usr/local/share/Music
+```
+
+Der Besitzer bleibt `root`, aber die Gruppe wird zu `music`.
+
+Anschließend setzen wir die Berechtigungen:
+
+```bash
+[alice@linuxbox ~]$ sudo chmod 2775 /usr/local/share/Music
+```
+
+Nun sieht das Verzeichnis so aus:
+
+```bash
+[alice@linuxbox ~]$ ls -ld /usr/local/share/Music
+drwxrwsr-x 2 root music 4096 2025-03-21 18:05 /usr/local/share/Music
+```
+
+Der Modus
+
+```text
+2775
+```
+
+besteht aus zwei Teilen:
+
+```text
+2    775
+│    └── normale Berechtigungen
+└─────── setgid-Bit
+```
+
+Die normalen Rechte sind:
+
+```text
+rwx rwx r-x
+```
+
+Damit dürfen
+
+- `root` alles,
+- Mitglieder der Gruppe `music` ebenfalls alles,
+- und alle anderen das Verzeichnis nur lesen und betreten.
+
+Die führende `2` setzt zusätzlich das **setgid-Bit**.
+
+Dadurch erhalten neu angelegte Dateien und Unterverzeichnisse automatisch die Gruppe `music`.
+
+Dasselbe hätte auch symbolisch gesetzt werden können:
+
+```bash
+sudo chmod g+s /usr/local/share/Music
+```
+
+---
+
+## Was haben wir damit erreicht?
+
+Das Verzeichnis
+
+```text
+/usr/local/share/Music
+```
+
+gehört nun
+
+- dem Benutzer `root`,
+- und der Gruppe `music`.
+
+Die Gruppenmitglieder Alice und Bob können darin
+
+- Dateien anlegen,
+- Verzeichnisse erstellen,
+- Einträge umbenennen,
+- und Dateien löschen.
+
+Andere Benutzer können den Inhalt zwar ansehen, aber nichts verändern.
+
+Dank des setgid-Bits erben neu angelegte Dateien und Verzeichnisse automatisch die Gruppe `music`.
+
+Damit ist die gemeinsame Gruppenzugehörigkeit sichergestellt.
+
+---
+
+## Das verbleibende Problem: die Umask
+
+Auf diesem System lautet die Standard-Umask:
+
+```text
+0022
+```
+
+Neue Dateien erhalten dadurch normalerweise:
+
+```text
+rw-r--r--
+```
+
+und neue Verzeichnisse:
+
+```text
+rwxr-xr-x
+```
+
+Die Gruppe darf also lesen, aber nicht schreiben.
+
+Für ein gemeinsam bearbeitetes Verzeichnis ist das unpraktisch.
+
+Wenn Alice beispielsweise ein Unterverzeichnis für einen Künstler anlegt, könnte Bob darin keine Dateien ergänzen.
+
+Deshalb benötigen beide Benutzer eine Umask von:
+
+```text
+0002
+```
+
+Damit bleiben die Schreibrechte der Gruppe erhalten.
+
+---
+
+## Die Umask testen
+
+Alice setzt ihre Umask vorübergehend auf `0002`:
+
+```bash
+[alice@linuxbox ~]$ umask 0002
+```
+
+Nun erstellt sie eine Testdatei:
+
+```bash
+[alice@linuxbox ~]$ > /usr/local/share/Music/test_file
+```
+
+und ein Testverzeichnis:
+
+```bash
+[alice@linuxbox ~]$ mkdir /usr/local/share/Music/test_dir
+```
+
+Danach prüfen wir das Ergebnis:
+
+```bash
+[alice@linuxbox ~]$ ls -l /usr/local/share/Music
+drwxrwsr-x 2 alice music 4096 2025-03-24 20:24 test_dir
+-rw-rw-r-- 1 alice music    0 2025-03-24 20:22 test_file
+```
+
+Beide Einträge gehören
+
+- Janet als Besitzerin
+- und der Gruppe `music`.
+
+Die Datei besitzt:
+
+```text
+rw-rw-r--
+```
+
+Das Verzeichnis besitzt:
+
+```text
+rwxrwsr-x
+```
+
+Damit können alle Mitglieder der Gruppe `music` gemeinsam darin arbeiten.
+
+:::note
+## Warum enthält das Unterverzeichnis wieder ein `s`?
+
+Das neu angelegte Verzeichnis `test_dir` erbt durch das setgid-Bit nicht nur die Gruppe `music`.
+
+Auf Linux wird bei einem neuen Unterverzeichnis in einem setgid-Verzeichnis normalerweise auch das setgid-Bit weitergegeben.
+
+Dadurch vererbt sich das gewünschte Gruppenverhalten durch die gesamte Verzeichnisstruktur.
+:::
+
+---
+
+## Die Änderung ist noch nicht dauerhaft
+
+Der Befehl
+
+```bash
+umask 0002
+```
+
+gilt nur für die aktuelle Shell und die von ihr gestarteten Prozesse.
+
+Nach dem Abmelden oder Schließen der Sitzung geht diese Einstellung verloren.
+
+In Kapitel 11 sehen wir uns an, wie die Umask dauerhaft festgelegt werden kann.
+
+:::note
+## Reichen setgid und Umask immer aus?
+
+Für dieses Beispiel genügt die Kombination aus
+
+- gemeinsamer Gruppe,
+- setgid-Bit,
+- und passender Umask.
+
+Auf komplexeren Mehrbenutzersystemen werden häufig zusätzlich **Access Control Lists** verwendet, kurz ACLs.
+:::
+
+# Das Passwort ändern
+
+Zum Abschluss dieses Kapitels beschäftigen wir uns noch mit einem Thema, das jeder Linux-Benutzer früher oder später benötigt:
+
+**Passwörter ändern.**
+
+Dafür gibt es den Befehl
+
+```bash
+passwd
+```
+
+Die allgemeine Syntax lautet:
+
+```bash
+passwd [Benutzer]
+```
+
+---
+
+## Das eigene Passwort ändern
+
+Möchtest du dein eigenes Passwort ändern, genügt der Befehl:
+
+```bash
+passwd
+```
+
+Anschließend wirst du nacheinander aufgefordert,
+
+1. dein aktuelles Passwort einzugeben,
+2. ein neues Passwort festzulegen,
+3. und dieses zur Kontrolle zu wiederholen.
+
+Beispielsweise:
+
+```bash
+[me@linuxbox ~]$ passwd
+Changing password for me.
+Current password:
+New password:
+Retype new password:
+passwd: password updated successfully
+```
+
+Nach erfolgreicher Eingabe wird das neue Passwort gespeichert.
+
+---
+
+## Schwache Passwörter
+
+`passwd` versucht außerdem, schwache Passwörter zu erkennen.
+
+Dazu gehören beispielsweise Passwörter,
+
+- die zu kurz sind,
+- die dem bisherigen Passwort zu ähnlich sind,
+- die aus einem Wörterbuch stammen,
+- oder sich leicht erraten lassen.
+
+In solchen Fällen erscheint eine Warnung:
+
+```bash
+[me@linuxbox ~]$ passwd
+Changing password for me.
+Current password:
+New password:
+BAD PASSWORD: is too similar to the old one
+
+New password:
+BAD PASSWORD: it is WAY too short
+
+New password:
+BAD PASSWORD: it is based on a dictionary word
+```
+
+Diese Hinweise helfen dabei, ein sichereres Passwort zu wählen.
+
+:::
+## Warnung bedeutet nicht immer Ablehnung
+
+Je nach Linux-Distribution und Sicherheitsrichtlinie kann ein als **BAD PASSWORD** eingestuftes Passwort trotzdem akzeptiert werden.
+
+In anderen Systemen wird es dagegen vollständig abgelehnt.
+
+Ob lediglich gewarnt oder das Passwort tatsächlich verweigert wird, entscheidet die jeweilige Passwort-Richtlinie des Systems.
+:::
+
+---
+
+## Das Passwort eines anderen Benutzers ändern
+
+Besitzt du Administratorrechte, kannst du auch das Passwort eines anderen Benutzers ändern.
+
+Dazu gibst du dessen Benutzernamen an:
+
+```bash
+sudo passwd alice
+```
+
+oder – falls du bereits als `root` arbeitest –
+
+```bash
+passwd alice
+```
+
+Der Benutzer muss sein bisheriges Passwort dabei nicht kennen.
+
+Administratoren können außerdem weitere Einstellungen vornehmen, beispielsweise:
+
+- Benutzerkonten sperren,
+- Passwörter ablaufen lassen,
+- oder Benutzer zur Passwortänderung beim nächsten Login zwingen.
+
+Weitere Informationen findest du in der Handbuchseite:
+
+```bash
+man passwd
+```
+
+---
+
+# Weitere Benutzerverwaltungsbefehle
+
+`passwd`, `groupadd` und `usermod` gehören zu einer Sammlung von Programmen namens **shadow-utils**.
+
+Sie enthält unter anderem folgende Werkzeuge:
+
+| Befehl | Beschreibung |
+|--------|--------------|
+| `lastlog` | Zeigt den letzten Login aller oder eines bestimmten Benutzers an. |
+| `useradd` | Legt einen neuen Benutzer an oder ändert Standardwerte für neue Benutzer. |
+| `userdel` | Löscht einen Benutzer und – optional – dessen Dateien. |
+| `usermod` | Ändert Eigenschaften eines bestehenden Benutzerkontos. |
+| `groupadd` | Erstellt eine neue Gruppe. |
+| `groupdel` | Löscht eine Gruppe. |
+| `groupmod` | Ändert die Eigenschaften einer bestehenden Gruppe. |
+
+Diese Programme gehören eher zur Systemadministration und würden den Rahmen dieses Buches sprengen.
+
+Falls du dich näher dafür interessierst, lohnt sich wie immer ein Blick in die jeweiligen Handbuchseiten.
+
+---
+
+# Zusammenfassung
+
+In diesem Kapitel haben wir gelernt, wie Linux den Zugriff auf Dateien und Verzeichnisse verwaltet.
+
+Dabei haben wir unter anderem gesehen,
+
+- wie Besitzer und Gruppen funktionieren,
+- welche Bedeutung die Berechtigungen `r`, `w` und `x` besitzen,
+- wie sich Berechtigungen mit `chmod` ändern lassen,
+- wie `umask` die Standardberechtigungen neuer Dateien beeinflusst,
+- wie Besitzer und Gruppen mit `chown` und `chgrp` geändert werden,
+- wie sich Benutzeridentitäten mit `su` und `sudo` wechseln lassen,
+- und wie Passwörter mit `passwd` verwaltet werden.
+
+Das Unix-Berechtigungssystem entstand bereits in den frühen 1970er-Jahren.
+
+Trotz seines hohen Alters bildet es bis heute die Grundlage der Zugriffskontrolle nahezu aller Unix- und Linux-Systeme.
+
+Seine Stärke liegt in seiner Einfachheit und Zuverlässigkeit.
+
+Gleichzeitig besitzt es jedoch Grenzen.
+
+Im Vergleich zu moderneren Berechtigungssystemen lassen sich Zugriffsrechte nur vergleichsweise grob festlegen.
+
+Für komplexere Anforderungen existieren deshalb Erweiterungen wie **Access Control Lists (ACLs)**, die deutlich feinere Berechtigungen ermöglichen.
+
+Diese spielen im Linux-Alltag zwar durchaus eine Rolle, gehen jedoch über den Rahmen dieses Buches hinaus.
+
+:::
+## Das Wichtigste aus diesem Kapitel
+
+Wenn du dir nur vier Befehle merkst, bist du für die meisten Aufgaben bereits gut gerüstet:
+
+- `chmod` – Berechtigungen ändern
+- `chown` – Besitzer oder Gruppe ändern
+- `sudo` – Einen einzelnen Befehl mit Administratorrechten ausführen
+- `passwd` – Passwörter ändern
+
+Mit diesen Befehlen lassen sich die meisten alltäglichen Aufgaben rund um Benutzer und Dateiberechtigungen erledigen.
+:::
+
+# Weiterlesen
+
+- Wikipedia bietet einen guten Überblick über **Schadsoftware (Malware)**:
+
+  <https://en.wikipedia.org/wiki/Malware>
