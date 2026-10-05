@@ -45,6 +45,30 @@ Wenn die Übersetzung im Chat geliefert wird, wird der gesamte Abschnitt in **ei
 
 Die Markdown-Dateien müssen **remark-lint-sauber** sein. Bei der Ausgabe ist deshalb nicht nur auf gültiges Markdown, sondern auch auf die im Projekt verwendeten Formatierungsregeln zu achten.
 
+### Hervorhebungen
+
+Für Hervorhebungen gelten im Projekt einheitlich folgende Marker:
+
+```markdown
+**fett**
+_kursiv_
+`Code`
+```
+
+Kursiver Text muss mit Unterstrichen geschrieben werden:
+
+```markdown
+_Environment_
+```
+
+Nicht verwenden:
+
+```markdown
+*Environment*
+```
+
+Damit werden insbesondere `remark-lint`-Fehler wie `emphasis-marker` vermieden.
+
 ### Tabellen
 
 Markdown-Tabellen müssen an den Zellrändern mit Leerzeichen formatiert werden.
