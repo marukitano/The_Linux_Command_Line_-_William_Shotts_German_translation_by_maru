@@ -6,7 +6,7 @@ _The Linux Command Line_ von **William Shotts** gehört zu den bekanntesten und 
 
 Nur eine deutsche Übersetzung fehlte bisher.
 
-Das möchten wir ändern.
+Das möchten ich ändern.
 
 ## Die Idee
 
@@ -16,7 +16,7 @@ Im Rahmen meines Studiums an der Fachhochschule muss ich _The Linux Command Line
 
 Aus dieser einfachen Frage entstand ein Projekt.
 
-Der **Hackerspace Odenwilusenz** hat sich zum Ziel gesetzt, eine hochwertige deutsche Übersetzung zu erstellen und sie der Open-Source-Community zur Verfügung zu stellen.
+Ich habe mir zum Ziel gesetzt, eine hochwertige deutsche Übersetzung zu erstellen und sie der Open-Source-Community zur Verfügung zu stellen.
 
 Denn Open Source bedeutet nicht nur, Quellcode frei zugänglich zu machen. Open Source bedeutet auch, Wissen zugänglich zu machen.
 
@@ -33,11 +33,11 @@ Dadurch bleibt das Projekt:
 
 Für die Rohübersetzung wird abschnittsweise **ChatGPT** eingesetzt. Jeder Abschnitt wird anschließend sorgfältig geprüft, sprachlich überarbeitet und bei Bedarf an Stil, Lesbarkeit und fachliche Genauigkeit angepasst.
 
-Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate generiert werden. ACHTUNG: Wir haben nur die Erlaubnis für PDF.
+Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate generiert werden. ACHTUNG: Ich habe nur die Erlaubnis für PDF.
 
 ## Mitmachen
 
-Wir freuen uns über jede Unterstützung.
+Ich freue uns über jede Unterstützung.
 
 Ob Rechtschreibfehler, Formulierungen, fachliche Hinweise oder komplette Kapitel – jede Verbesserung hilft dabei, eine möglichst hochwertige deutsche Ausgabe dieses großartigen Buches zu erstellen.
 
