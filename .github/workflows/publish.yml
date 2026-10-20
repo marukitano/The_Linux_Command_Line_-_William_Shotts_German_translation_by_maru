@@ -66,20 +66,20 @@ jobs:
           mapfile -t files < build/files.txt
 
           cat > build/pdf-header.tex <<'EOF'
-          \\usepackage{xcolor}
-          \\usepackage{fvextra}
-          \\definecolor{CodeBackground}{HTML}{111111}
-          \\definecolor{CodeForeground}{HTML}{F2F2F2}
-          \\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+          \usepackage{xcolor}
+          \usepackage{fvextra}
+          \definecolor{CodeBackground}{HTML}{111111}
+          \definecolor{CodeForeground}{HTML}{F2F2F2}
+          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
             breaklines=true,
             breakanywhere=true,
-            commandchars=\\\\\\{\\},
-            fontsize=\\small,
+            commandchars=\\\{\},
+            fontsize=\small,
             frame=single,
             framesep=4mm,
-            rulecolor=\\color{black!55},
-            fillcolor=\\color{CodeBackground},
-            formatcom=\\color{CodeForeground}
+            rulecolor=\color{black!55},
+            fillcolor=\color{CodeBackground},
+            formatcom=\color{CodeForeground}
           }
           EOF
 
