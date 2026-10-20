@@ -1,0 +1,108 @@
+name: Build PDF and Web
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Chapters/**"
+      - "Images/**"
+      - "build/**"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Pandoc
+        uses: pandoc/actions/setup@v1
+
+      - name: Install PDF engine and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends             texlive-xetex             texlive-latex-extra             texlive-fonts-recommended             fonts-dejavu
+
+      - name: Read chapter order
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist site
+
+          : > build/files.txt
+          while IFS= read -r file || [[ -n "$file" ]]; do
+            [[ -z "$file" || "$file" =~ ^[[:space:]]*# ]] && continue
+
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Fehlende Datei in build/book-order.txt: $file"
+              exit 1
+            fi
+
+            printf '%s\n' "$file" >> build/files.txt
+          done < build/book-order.txt
+
+          if [[ ! -s build/files.txt ]]; then
+            echo "::error::Keine Kapitel in build/book-order.txt gefunden."
+            exit 1
+          fi
+
+      - name: Build PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t files < build/files.txt
+
+          pandoc "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --toc             --toc-depth=2             --pdf-engine=xelatex             -V lang=de-DE             -V papersize=a4             -V geometry:margin=24mm             -V mainfont="DejaVu Serif"             -V sansfont="DejaVu Sans"             -V monofont="DejaVu Sans Mono"             -V colorlinks=true             -V linkcolor=blue             -V urlcolor=blue             -M title="The Linux Command Line – Deutsche Übersetzung"             -M author="William Shotts · Deutsche Übersetzung von maru"             -o dist/The-Linux-Command-Line-DE.pdf
+
+      - name: Build web version
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t files < build/files.txt
+
+          pandoc build/web-intro.md "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --standalone             --toc             --toc-depth=2             --metadata title="The Linux Command Line – Deutsche Übersetzung"             --css=style.css             -o site/index.html
+
+          cp build/site.css site/style.css
+          cp dist/The-Linux-Command-Line-DE.pdf site/The-Linux-Command-Line-DE.pdf
+
+          if [[ -d Images ]]; then
+            cp -R Images site/Images
+          fi
+
+          touch site/.nojekyll
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: The-Linux-Command-Line-DE-PDF
+          path: dist/The-Linux-Command-Line-DE.pdf
+          if-no-files-found: error
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
