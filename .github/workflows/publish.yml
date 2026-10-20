@@ -34,7 +34,7 @@ jobs:
       - name: Install PDF engine and fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends             texlive-xetex             texlive-latex-extra             texlive-fonts-recommended             fonts-dejavu
+          sudo apt-get install -y --no-install-recommends             texlive-xetex             texlive-latex-extra             texlive-fonts-recommended             lmodern             fonts-dejavu
 
       - name: Read chapter order
         shell: bash
