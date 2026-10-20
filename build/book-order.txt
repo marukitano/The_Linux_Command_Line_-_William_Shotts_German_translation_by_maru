@@ -1,0 +1,17 @@
+# Reihenfolge der Kapitel für Web- und PDF-Ausgabe.
+# Eine Markdown-Datei pro Zeile, relativ zum Repository-Root.
+Chapters/01_Einleitung.md
+Chapters/Teil1_000_Die_Shell_kennenlernen.md
+Chapters/Teil1_001_Was_ist_die_Shell.md
+Chapters/Teil1_002_Navigation.md
+Chapters/Teil1_003_Das_System_erkunden.md
+Chapters/Teil1_004_Dateien_und_Verzeichnisse_verwalten.md
+Chapters/Teil1_005_Mit_Befehlen_arbeiten.md
+Chapters/Teil1_006_Umleitungen.md
+Chapters/Teil1_007_Die_Welt_mit_den_Augen_der_Shell_sehen.md
+Chapters/Teil1_008_Fortgeschrittene_Tastaturtricks.md
+Chapters/Teil1_009_Berechtigungen.md
+Chapters/Teil1_010_Prozesse.md
+Chapters/Teil ll - Konfiguration und Umgebung.md
+Chapters/11 - Die Umgebung.md
+Chapters/12 - Eine kleine Einfuehrung in vi(m).md
