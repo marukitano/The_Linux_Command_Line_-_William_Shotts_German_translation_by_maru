@@ -65,25 +65,7 @@ jobs:
           set -euo pipefail
           mapfile -t files < build/files.txt
 
-          cat > build/pdf-header.tex <<'EOF'
-          \usepackage{xcolor}
-          \usepackage{fvextra}
-          \definecolor{CodeBackground}{HTML}{111111}
-          \definecolor{CodeForeground}{HTML}{F2F2F2}
-          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
-            breaklines=true,
-            breakanywhere=true,
-            commandchars=\\\{\},
-            fontsize=\small,
-            frame=single,
-            framesep=4mm,
-            rulecolor=\color{black!55},
-            fillcolor=\color{CodeBackground},
-            formatcom=\color{CodeForeground}
-          }
-          EOF
-
-          pandoc "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --toc             --toc-depth=2             --pdf-engine=xelatex             --highlight-style=pygments             --include-in-header=build/pdf-header.tex             -V lang=de-DE             -V papersize=a4             -V geometry:margin=24mm             -V mainfont="DejaVu Serif"             -V sansfont="DejaVu Sans"             -V monofont="DejaVu Sans Mono"             -V colorlinks=true             -V linkcolor=blue             -V urlcolor=blue             -M title="The Linux Command Line – Deutsche Übersetzung"             -M author="William Shotts · Deutsche Übersetzung von maru"             -o dist/The-Linux-Command-Line-DE.pdf
+          pandoc "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --toc             --toc-depth=2             --pdf-engine=xelatex             --lua-filter=build/pdf-codeblocks.lua             --include-in-header=build/pdf-header.tex             -V lang=de-DE             -V papersize=a4             -V geometry:margin=24mm             -V mainfont="DejaVu Serif"             -V sansfont="DejaVu Sans"             -V monofont="DejaVu Sans Mono"             -V colorlinks=true             -V linkcolor=blue             -V urlcolor=blue             -M title="The Linux Command Line – Deutsche Übersetzung"             -M author="William Shotts · Deutsche Übersetzung von maru"             -o dist/The-Linux-Command-Line-DE.pdf
 
       - name: Build web version
         shell: bash
@@ -91,7 +73,9 @@ jobs:
           set -euo pipefail
           mapfile -t files < build/files.txt
 
-          pandoc build/web-intro.md "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --standalone             --embed-resources             --toc             --toc-depth=2             --metadata title="The Linux Command Line – Deutsche Übersetzung"             --css=style.css             -o site/index.html
+          pandoc build/web-intro.md "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --standalone             --toc             --toc-depth=2             --metadata title="The Linux Command Line – Deutsche Übersetzung"             --css=style.css             -o site/index.html
+
+          sed -i 's#\.\./Images/#Images/#g' site/index.html
 
           cp build/site.css site/style.css
           cp dist/The-Linux-Command-Line-DE.pdf site/The-Linux-Command-Line-DE.pdf
