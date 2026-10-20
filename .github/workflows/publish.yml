@@ -91,7 +91,7 @@ jobs:
           set -euo pipefail
           mapfile -t files < build/files.txt
 
-          pandoc build/web-intro.md "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --standalone             --toc             --toc-depth=2             --metadata title="The Linux Command Line – Deutsche Übersetzung"             --css=style.css             -o site/index.html
+          pandoc build/web-intro.md "${files[@]}"             --from=markdown+fenced_divs+smart             --resource-path=".:Chapters:Images"             --standalone             --embed-resources             --toc             --toc-depth=2             --metadata title="The Linux Command Line – Deutsche Übersetzung"             --css=style.css             -o site/index.html
 
           cp build/site.css site/style.css
           cp dist/The-Linux-Command-Line-DE.pdf site/The-Linux-Command-Line-DE.pdf
