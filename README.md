@@ -1,5 +1,9 @@
 # The Linux Command Line – Deutsche Übersetzung
 
+🌐 **Webversion:** https://marukitano.github.io/The_Linux_Command_Line_-_William_Shotts_German_translation_by_maru/  
+📄 **PDF:** https://marukitano.github.io/The_Linux_Command_Line_-_William_Shotts_German_translation_by_maru/The-Linux-Command-Line-DE.pdf
+
+
 ## Worum geht es?
 
 _The Linux Command Line_ von **William Shotts** gehört zu den bekanntesten und besten Büchern über die Linux-Kommandozeile. Das Buch steht unter einer freien Lizenz und wurde bereits in zahlreiche Sprachen übersetzt.
@@ -33,7 +37,7 @@ Dadurch bleibt das Projekt:
 
 Für die Rohübersetzung wird abschnittsweise **ChatGPT** eingesetzt. Jeder Abschnitt wird anschließend sorgfältig geprüft, sprachlich überarbeitet und bei Bedarf an Stil, Lesbarkeit und fachliche Genauigkeit angepasst.
 
-Aus den Markdown-Dateien können anschließend verschiedene Ausgabeformate generiert werden. ACHTUNG: Ich habe nur die Erlaubnis für PDF.
+Aus den Markdown-Dateien werden automatisch eine Webversion und eine PDF-Ausgabe erzeugt. Für diese beiden Ausgabeformen liegt die Erlaubnis vor.
 
 ## Mitmachen
 
