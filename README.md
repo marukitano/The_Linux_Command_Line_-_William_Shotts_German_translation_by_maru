@@ -1,5 +1,9 @@
 # The Linux Command Line – Deutsche Übersetzung
 
+<p align="center">
+  <img src="Images/Cover_swiss.png" width="360" alt="The Linux Command Line – Deutsche Übersetzung">
+</p>
+
 🌐 **Webversion:** [The Linux Command Line – Deutsche Übersetzung](https://marukitano.github.io/The_Linux_Command_Line_-_William_Shotts_German_translation_by_maru/)  
 📄 **PDF:** [The Linux Command Line – Deutsche Übersetzung](https://marukitano.github.io/The_Linux_Command_Line_-_William_Shotts_German_translation_by_maru/The-Linux-Command-Line-DE.pdf)
 
